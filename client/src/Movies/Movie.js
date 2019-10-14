@@ -3,11 +3,15 @@ import axios from 'axios';
 
 const Movie = (props) => {
   const [movie, setMovie] = useState({});
+  let id = useState([]);
+    id = Number(props.match.params.id);
  
   useEffect(() => {
-    const id = 1;
+    
+    
     // change ^^^ that line and grab the id from the URL
     // You will NEED to add a dependency array to this effect hook
+    //The linter is telling you that you're depending on external values that may change, when you set the dependencies as an empty array the effect will run just once when the component mounts.
 
        axios
         .get(`http://localhost:5000/api/movies/${id}`)
@@ -18,7 +22,7 @@ const Movie = (props) => {
           console.error(error);
         });
 
-  },[]);
+  },[id]);
   
   // Uncomment this only when you have moved on to the stretch goals
   // const saveMovie = () => {
@@ -42,12 +46,8 @@ const Movie = (props) => {
           Metascore: <strong>{metascore}</strong>
         </div>
         <h3>Actors</h3>
-
-        {stars.map(star => (
-          <div key={star} className="movie-star">
-            {star}
-          </div>
-        ))}
+    {console.log(movie)}
+       
       </div>
       <div className="save-button">Save</div>
     </div>
@@ -55,3 +55,10 @@ const Movie = (props) => {
 }
 
 export default Movie;
+
+
+// {stars.map(star => (
+//   <div key={star} className="movie-star">
+//     {star}
+//   </div>
+// ))}
