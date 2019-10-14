@@ -23,6 +23,7 @@ const Movie = (props) => {
         });
 
   },[id]);
+ 
   
   // Uncomment this only when you have moved on to the stretch goals
   // const saveMovie = () => {
@@ -46,13 +47,13 @@ const Movie = (props) => {
           Metascore: <strong>{metascore}</strong>
         </div>
         <h3>Actors</h3>
-    {console.log(movie)}
-       
+       {console.log(stars)}
       </div>
       <div className="save-button">Save</div>
     </div>
   );
 }
+
 
 export default Movie;
 
