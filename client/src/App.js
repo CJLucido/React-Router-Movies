@@ -1,9 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {Route} from 'react-router-dom'
+import axios from 'axios';
 
 import SavedList from './Movies/SavedList';
+import MovieList from "./Movies/MovieList";
+import Movie from "./Movies/Movie"
 
 const App = () => {
   const [savedList, setSavedList] = useState( [] );
+
+  const [movies, setMovies] = useState([])
+
+  useEffect(() => {
+    const getMovies = () => {
+      axios
+        .get('http://localhost:5000/api/movies')
+        .then(response => {
+          setMovies(response.data);
+        })
+        .catch(error => {
+          console.error('Server Error', error);
+        });
+    }
+    
+    getMovies();
+  }, []);
 
   const addToSavedList = movie => {
     setSavedList( [...savedList, movie] );
@@ -12,9 +33,16 @@ const App = () => {
   return (
     <div>
       <SavedList list={savedList} />
-      <div>Replace this Div with your Routes</div>
+      
+     
+
+      <Route exact path="/" render={(props) => <MovieList {...props} movies={movies}/>}/>
+      <Route path="/movies/:id" render={(props)=> <Movie {...props}/>}/>
     </div>
   );
 };
 
 export default App;
+
+// <Route exact path="/" component={MovieList}></Route>
+// <Route path="/movies/:id" component={Movie}></Route>
